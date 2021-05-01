@@ -2,6 +2,10 @@
 class PluginIncludeJs{
   public static function widget_include($data){
     /**
+     *
+     */
+    $self = new PluginIncludeJs();
+    /**
      * 
      */
     $data = new PluginWfArray($data);
@@ -25,8 +29,7 @@ class PluginIncludeJs{
       /**
        * 
        */
-      $filetime = wfFilesystem::getFiletime(wfGlobals::getWebDir().$data->get('data/src'));
-      $element[] = wfDocument::createHtmlElement('script', null, array('src' => $data->get('data/src').'?t='.$filetime, 'type' => 'text/javascript'));
+      $element[] = $self->get_element($data->get('data/src'));
     }else{
       foreach ($data->get('data/src') as $value) {
         /**
@@ -35,10 +38,21 @@ class PluginIncludeJs{
         if(!wfFilesystem::fileExist(wfGlobals::getWebDir().$value)){
           throw new Exception(__CLASS__.' says: File '.wfGlobals::getWebDir().$value.' does not exist!');
         }
-        $filetime = wfFilesystem::getFiletime(wfGlobals::getWebDir().$value);
-        $element[] = wfDocument::createHtmlElement('script', null, array('src' => $value.'?t='.$filetime, 'type' => 'text/javascript'));
+        $element[] = $self->get_element($value);
       }
     }
     wfDocument::renderElement($element);
+  }
+  public function get_element($value){
+    $filetime = wfFilesystem::getFiletime(wfGlobals::getWebDir().$value);
+    $extension = strtolower(pathinfo($value, PATHINFO_EXTENSION));
+    if($extension=='js'){
+      $element = wfDocument::createHtmlElement('script', null, array('src' => $value.'?t='.$filetime, 'type' => 'text/javascript'));
+    }elseif($extension=='css'){
+      $element = wfDocument::createHtmlElement('link', null, array('href' => $value.'?t='.$filetime, 'rel' => 'stylesheet'));
+    }else{
+      throw new Exception(__CLASS__.' says: File '.wfGlobals::getWebDir().$value.' must have extension js or css!');
+    }
+    return $element;
   }
 }

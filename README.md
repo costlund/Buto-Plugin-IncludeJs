@@ -1,6 +1,5 @@
 # Buto-Plugin-IncludeJs
-
-Include script element with time param to force browser to download latest version. The file must exist in web root folder.
+Include script or link (js or css extension) element with time param to force browser to download latest version. The file must exist in web root folder.
 
 ##PHP
 ```
@@ -28,5 +27,5 @@ data:
   data:
     src:
       - '/plugin/_folder_one_/_folder_two_/function.js'
-      - '/plugin/_folder_one_/_folder_two_/function2.js'
+      - '/plugin/_folder_one_/_folder_two_/style.css'
 ```
