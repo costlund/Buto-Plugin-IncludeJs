@@ -1,8 +1,12 @@
-version: 1.2.0
+version: 1.2.1
 history:
+  1.2.1:
+    date: '2023-09-11'
+    title: Versions
+    description: 'Versions update.'
   1.2.0:
     date: '2021-05-01'
-    title: 'CSS'
+    title: CSS
     description: 'Include css file also.'
   1.1.0:
     date: '2020-06-05'
@@ -15,7 +19,7 @@ history:
 plugin:
   -
     name: wf/array
-    version: 1.2.0
+    version: 1.5.0
 sys:
   -
     name: mercury
